@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chl.campussecondhandtradingsystem.Dao.IGoodsDao">
+    <select id="findAllGoods" resultType="goods">
+        select goods_id, goods_name, price, category, a.img, description, username as seller
+        from goods a join users on (seller = user_id);
+    </select>
+
+    <insert id="uploadGoods" parameterType="goods">
+        insert into goods(goods_name, price, category, img, description)
+        values(#{goods_name},#{price},#{category},#{img},#{description})
+    </insert>
+
+    <select id="" resultType="int">
+        select goods_id
+        from goods
+        order by goods_id desc limit 1;
+    </select>
+</mapper>

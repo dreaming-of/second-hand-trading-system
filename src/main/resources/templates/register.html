@@ -1,0 +1,155 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="stylesheet" th:href="@{css/mycss.css}">
+    <link rel="stylesheet" th:href="@{layui/css/layui.css}">
+    <script th:src="@{layui/layui.js}"></script>
+    <script th:src="@{js/jquery-3.5.1.min.js}"></script>
+    <script th:src="@{js/md5.min.js}"></script>
+    <title>注册</title>
+
+</head>
+<style>
+    .register {
+        width: 1000px;
+        background-color: hsl(315, 24%, 50%);
+        margin: 0 auto;
+    }
+
+    .son {
+        margin-left: 200px;
+    }
+</style>
+
+<body>
+    <div>
+        <ul class="layui-nav">
+            <li class="layui-nav-item">
+                <a href="index.html">首页</span></a>
+            </li>
+
+        </ul>
+    </div>
+
+    <div class="register">
+        <div class="son">
+            <form class="layui-form" action="/register" method="post">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">学号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="student_number" maxlength="10"
+                            onkeyup="this.value=this.value.replace(/[^\d]/g,'')"
+                            onafterpaste="this.value=this.value.replace(/[^\d]/g,'')" id="sn" required
+                            lay-verify="required" placeholder="请输入你的学号" autocomplete="off" class="layui-input"
+                            style="width: 200px;">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux" id="msg3"></div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="username" required lay-verify="required" placeholder="请输入你的用户名"
+                            autocomplete="off" class="layui-input" style="width: 200px;">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">email</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="email" required lay-verify="required" placeholder="请输入你的邮箱"
+                            autocomplete="off" class="layui-input" style="width: 200px;">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">手机号</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="phone_number" required lay-verify="required" placeholder="请输入你的手机号"
+                            autocomplete="off" class="layui-input" style="width: 200px;">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">密码</label>
+                    <div class="layui-input-inline">
+                        <input type="password" id="pwd" name="password" required lay-verify="required"
+                            placeholder="请输入密码" autocomplete="off" class="layui-input" style="width: 200px;">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux" id="msg1"></div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">确认密码</label>
+                    <div class="layui-input-inline">
+                        <input type="password" id="re_pwd" required lay-verify="required" placeholder="请再次输入密码"
+                            autocomplete="off" class="layui-input" style="width: 200px;">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux" id="msg2"></div>
+                </div>
+
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button type="submit" class="layui-btn" lay-submit lay-filter="formDemo" id="sub">立即提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+        layui.use(['form', 'element'], function () {
+            //var form = layui.form;
+            //var element = layui.element;
+        });
+        $(function () {
+            var sn_haveuse = false;
+            $('#sn').blur(function () {
+                var sn = $('#sn').val();
+                if (sn.length < 10) {
+                    $('#msg3').html('<p style="color : red">学号长度必须为10位</p>');
+                    return;
+                }
+
+                $.ajax({
+                    method: 'get',
+                    url: "/findUserByStudentNumber",
+                    data: {
+                        id: sn
+                    },
+                    dataType: "json",
+                    success: function (res) {
+                        var flag = res["flag"];
+                        if (!flag) {
+                            $('#msg3').html('<p style=\"color : red\">该学号未被注册，可以使用</p>');
+                            sn_haveuse = true;
+                        } else {
+                            $('#msg3').html('<p style="color : red">该学号已被注册</p>');
+                            sn_haveuse = false;
+                        }
+                    }
+                })
+            })
+            $('#re_pwd').blur(function () {
+                var a = $('#re_pwd').val();
+                var b = $('#pwd').val();
+                if (b.length == 0 || b == null) {
+                    $('#msg1').html('<p style="color : red">请先输入密码</p>');
+                    $('#re_pwd').val("");
+                } else if (a != b) {
+                    $('#msg2').html('<p style="color : red">两次密码不一致!!</p>');
+                    $('#re_pwd').val("");
+                }
+            });
+            $('#pwd').focus(function () {
+                $('#msg1').text('');
+            })
+            $('#re_pwd').focus(function () {
+                $('#msg2').text('');
+            })
+
+            $('form').submit(function () {
+                if (!sn_haveuse) return false;
+                $('#re_pwd').val($('#pwd').val(md5($('#pwd').val(), '904924800')));
+            })
+        });
+    </script>
+</body>
