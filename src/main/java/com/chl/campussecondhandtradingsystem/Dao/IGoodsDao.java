@@ -11,4 +11,6 @@ public interface IGoodsDao {
     List<Goods> findAllGoods();
 
     void uploadGoods(Goods goods);
+
+    Goods findGoodsById(int id);
 }

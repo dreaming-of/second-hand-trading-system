@@ -9,5 +9,9 @@ public interface IUserDao {
 
     int insertUser(User user);
 
-    int findUserByStudentNumber(String id);
+    int findUserByStudentNumber(String student_number);
+
+    User findUserById(int id);
+
+    void updateHeader(int id, String headerImg);
 }

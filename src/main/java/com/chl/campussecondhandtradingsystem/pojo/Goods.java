@@ -1,19 +1,19 @@
 package com.chl.campussecondhandtradingsystem.pojo;
 
 public class Goods {
-    private String goods_id;
+    private int goods_id;
     private String goods_name;
     private double price;
     private int category;
     private String img;
     private String description;
-    private String seller;
+    private int seller;
 
-    public String getSeller() {
+    public int getSeller() {
         return seller;
     }
 
-    public void setSeller(String seller) {
+    public void setSeller(int seller) {
         this.seller = seller;
     }
 
@@ -25,12 +25,12 @@ public class Goods {
         this.description = description;
     }
 
-    public String getGoods_id() {
-        return goods_id;
+    public void setGoods_id(int goods_id) {
+        this.goods_id = goods_id;
     }
 
-    public void setGoods_id(String goods_id) {
-        this.goods_id = goods_id;
+    public int getGoods_id() {
+        return goods_id;
     }
 
     public String getGoods_name() {
@@ -68,13 +68,13 @@ public class Goods {
     @Override
     public String toString() {
         return "Goods{" +
-                "goods_id='" + goods_id + '\'' +
+                "goods_id=" + goods_id +
                 ", goods_name='" + goods_name + '\'' +
                 ", price=" + price +
                 ", category=" + category +
                 ", img='" + img + '\'' +
                 ", description='" + description + '\'' +
-                ", seller='" + seller + '\'' +
+                ", seller=" + seller +
                 '}';
     }
 }

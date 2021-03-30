@@ -24,4 +24,8 @@ public class GoodsService {
         goodsDao.uploadGoods(goods);
         log.info("");
     }
+
+    public Goods findGoodsById(int id){
+        return goodsDao.findGoodsById(id);
+    }
 }

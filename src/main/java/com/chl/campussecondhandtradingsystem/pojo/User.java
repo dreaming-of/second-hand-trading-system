@@ -1,20 +1,36 @@
 package com.chl.campussecondhandtradingsystem.pojo;
 
 public class User {
-    private String user_id;
+    private int user_id;
     private String username;
     private String password;
     private String student_number;
     private String phone_number;
     private String email;
-    private String img;
+    private String headerImg;
 
-    public String getImg() {
-        return img;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getStudent_number() {
@@ -41,27 +57,24 @@ public class User {
         this.email = email;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public String getHeaderImg() {
+        return headerImg;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setHeaderImg(String headerImg) {
+        this.headerImg = headerImg;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    @Override
+    public String toString() {
+        return "User{" +
+                "user_id=" + user_id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", student_number='" + student_number + '\'' +
+                ", phone_number='" + phone_number + '\'' +
+                ", email='" + email + '\'' +
+                ", headerImg='" + headerImg + '\'' +
+                '}';
     }
 }

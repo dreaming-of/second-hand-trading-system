@@ -3,19 +3,27 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chl.campussecondhandtradingsystem.Dao.IGoodsDao">
+    <sql id="selectField">
+        goods_id, goods_name, price, category, img, description, seller
+    </sql>
+
+    <sql id="insertField">
+        goods_name, price, category, img, description, seller
+    </sql>
+
     <select id="findAllGoods" resultType="goods">
-        select goods_id, goods_name, price, category, a.img, description, username as seller
-        from goods a join users on (seller = user_id);
+        select <include refid="selectField"></include>
+        from goods;
     </select>
 
     <insert id="uploadGoods" parameterType="goods">
-        insert into goods(goods_name, price, category, img, description)
-        values(#{goods_name},#{price},#{category},#{img},#{description})
+        insert into goods(<include refid="insertField"></include>)
+        values(#{goods_name},#{price},#{category},#{img},#{description}, #{seller})
     </insert>
 
-    <select id="" resultType="int">
-        select goods_id
+    <select id="findGoodsById" resultType="goods">
+        select <include refid="selectField"></include>
         from goods
-        order by goods_id desc limit 1;
+        where goods_id = #{id}
     </select>
 </mapper>

@@ -31,9 +31,9 @@
 
 
             <li class="layui-nav-item fr" th:if="${session.LoginUser} != null">
-                <a href=""><img th:src='${session.LoginUser.img}' class="layui-nav-img">[[${session.LoginUser.username}]]</a>
+                <a href=""><img th:src="${session.LoginUser.headerImg}" class="layui-nav-img">[[${session.LoginUser.username}]]</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;">修改信息</a></dd>
+                    <dd><a href="setting.html">修改信息</a></dd>
                     <dd><a href="javascript:;">安全管理</a></dd>
                     <dd><a th:href="@{/logout}">退了</a></dd>
                 </dl>
@@ -50,20 +50,20 @@
 </form>
     <div class="w container">
         <ul>
-            <li th:each="goods:${goodsList}">
+            <li th:each="map:${goodsList}">
                 <div class="preimg">
-                    <a href=""> <img th:src='${goods.img}'></a>
+                    <a th:href="@{|/goods/details/${map.goods.goods_id}|}"> <img th:src='${map.goods.img}'></a>
                 </div>
                 <p class="details">
-                    [[${goods.description}]]
+                    [[${map.goods.description}]]
                 </p>
-                <input type="hidden" name="" id="" value="${goods.goods_id}">
+                <input type="hidden" name="" id="" value="${map.goods.goods_id}">
                 <!--👆用来放商品id-->
-                <p class="owner">由 [[${goods.seller}]] 所发布</p>
+                <p class="owner">由 [[${map.seller.username}]] 所发布</p>
                 <div class="info">
-                    <h4>[[${goods.goods_name}]]</h4>
+                    <h4>[[${map.goods.goods_name}]]</h4>
                     <em>|</em>
-                    <span>[[${goods.price}]]元</span>
+                    <span>[[${map.goods.price}]]元</span>
                 </div>
             </li>
 
