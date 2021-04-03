@@ -1,13 +1,14 @@
-package com.chl.campussecondhandtradingsystem.Controller;
+package com.chl.campussecondhandtradingsystem.controller;
 
-import com.chl.campussecondhandtradingsystem.Service.GoodsService;
-import com.chl.campussecondhandtradingsystem.Service.UserService;
 import com.chl.campussecondhandtradingsystem.pojo.Goods;
 import com.chl.campussecondhandtradingsystem.pojo.User;
+import com.chl.campussecondhandtradingsystem.service.GoodsService;
+import com.chl.campussecondhandtradingsystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -55,9 +56,10 @@ public class MainController {
         return "setting";
     }
 
-
-    @GetMapping("test/test.html")
-    public String t(Model model){
-        return "test";
+    @GetMapping("test")
+    @ResponseBody
+    public List t2(){
+        return userService.findAllUser();
     }
+
 }

@@ -1,12 +1,13 @@
-package com.chl.campussecondhandtradingsystem.Service;
+package com.chl.campussecondhandtradingsystem.service;
 
-import com.chl.campussecondhandtradingsystem.Dao.IUserDao;
-import com.chl.campussecondhandtradingsystem.Utils.MD5Utils;
+import com.chl.campussecondhandtradingsystem.dao.IUserDao;
 import com.chl.campussecondhandtradingsystem.pojo.User;
+import com.chl.campussecondhandtradingsystem.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -14,6 +15,10 @@ import java.util.Random;
 public class UserService {
     @Autowired
     private IUserDao userDao;
+
+    public List<User> findAllUser(){
+        return userDao.findAllUser();
+    }
 
     public User findUser(User user){
         user.setPassword(MD5Utils.md5(user.getPassword()));

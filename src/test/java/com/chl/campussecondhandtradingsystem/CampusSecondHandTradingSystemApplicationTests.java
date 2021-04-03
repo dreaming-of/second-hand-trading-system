@@ -1,18 +1,18 @@
 package com.chl.campussecondhandtradingsystem;
 
-import com.chl.campussecondhandtradingsystem.Service.UserService;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class CampusSecondHandTradingSystemApplicationTests {
 
-    @Autowired
-    private UserService userService;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Test
     void contextLoads() {
-        userService.updateHeader(2, "1");
+        System.out.println(dateFormat.format(new Date()));
     }
 }

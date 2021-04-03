@@ -1,6 +1,6 @@
-package com.chl.campussecondhandtradingsystem.Service;
+package com.chl.campussecondhandtradingsystem.service;
 
-import com.chl.campussecondhandtradingsystem.Dao.IGoodsDao;
+import com.chl.campussecondhandtradingsystem.dao.IGoodsDao;
 import com.chl.campussecondhandtradingsystem.pojo.Goods;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

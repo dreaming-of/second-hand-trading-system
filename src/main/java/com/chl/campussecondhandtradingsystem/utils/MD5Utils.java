@@ -1,4 +1,4 @@
-package com.chl.campussecondhandtradingsystem.Utils;
+package com.chl.campussecondhandtradingsystem.utils;
 
 import org.apache.commons.codec.digest.DigestUtils;
 

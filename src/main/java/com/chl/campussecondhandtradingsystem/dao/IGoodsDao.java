@@ -1,4 +1,4 @@
-package com.chl.campussecondhandtradingsystem.Dao;
+package com.chl.campussecondhandtradingsystem.dao;
 
 import com.chl.campussecondhandtradingsystem.pojo.Goods;
 import org.apache.ibatis.annotations.Mapper;
