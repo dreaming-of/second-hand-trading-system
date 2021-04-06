@@ -2,13 +2,13 @@ package com.chl.campussecondhandtradingsystem.websocket;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.chl.campussecondhandtradingsystem.dao.IChatDao;
 import com.chl.campussecondhandtradingsystem.pojo.Chat;
 import com.chl.campussecondhandtradingsystem.pojo.User;
+import com.chl.campussecondhandtradingsystem.service.ChatService;
+import com.chl.campussecondhandtradingsystem.utils.MyApplicationContextAware;
 import com.chl.campussecondhandtradingsystem.utils.MyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpSession;
@@ -30,8 +30,7 @@ public class ChatEndPoint {
 
     private HttpSession httpSession;
 
-    @Autowired
-    private IChatDao chatDao;
+    private ChatService chatService = MyApplicationContextAware.getApplicationContext().getBean(ChatService.class);
 
     @OnOpen
     public void onOpen(Session session, EndpointConfig config){
@@ -45,15 +44,15 @@ public class ChatEndPoint {
     @OnMessage
     public void onMessage(String message){
         JSONObject jsonObject = JSON.parseObject(message);
-        Integer toUserId = (Integer) jsonObject.get("toUser");
+        int toUserId = Integer.parseInt((String) jsonObject.get("toUser"));
         ChatEndPoint toUser = map.get(toUserId);
         Chat chat = new Chat();
         User fromUser = (User) httpSession.getAttribute("LoginUser");
-        chat.setChatId(MyUtils.getChatId(fromUser.getUser_id(), toUserId));
+        chat.setChat_id(MyUtils.getChatId(fromUser.getUser_id(), toUserId));
         String content = jsonObject.getString("content");
         chat.setContent(content);
-        chat.setToId(toUserId);
-        chat.setFromId(fromUser.getUser_id());
+        chat.setTo_id(toUserId);
+        chat.setFrom_id(fromUser.getUser_id());
         chat.setSendTime(new Date());
         if (toUser != null){
             try {
@@ -62,7 +61,7 @@ public class ChatEndPoint {
                 log.error("发送信息失败：" + e.getMessage());
             }
         }
-        chatDao.saveChat(chat);
+        chatService.saveChat(chat);
     }
 
     @OnClose

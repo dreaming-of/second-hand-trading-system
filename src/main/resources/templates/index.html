@@ -11,10 +11,10 @@
 
 <body>
 <form action="/search" method="POST">
-    <div>
+    <div th:fragment="header">
         <ul class="layui-nav">
             <li class="layui-nav-item">
-                <a href="">首页</span></a>
+                <a th:href="@{/index}">首页</span></a>
             </li>
             <li class="layui-nav-item">
                 <a href="">个人中心</a>
@@ -39,10 +39,10 @@
                 </dl>
             </li>
             <li class="layui-nav-item fr" th:if="${session.LoginUser} == null">
-                <a href="/login.html">登录</a>
+                <a th:href="@{/login.html}">登录</a>
             </li>
             <li class="layui-nav-item fr" th:if="${session.LoginUser} == null">
-                <a href="/register.html">注册</a>
+                <a th:href="@{/register.html}">注册</a>
             </li>
 
         </ul>

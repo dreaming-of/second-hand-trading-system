@@ -40,19 +40,19 @@ public class MainController {
     }
 
     @GetMapping(value = "login.html")
-    public String login(HttpSession session){
+    public String getLoginPage(HttpSession session){
         if(session.getAttribute("LoginUser") != null)
             return "index";
         return "login";
     }
 
     @GetMapping("register.html")
-    public String register(){
+    public String getRegisterPage(){
         return "register";
     }
 
     @GetMapping({"setting.html", "setting"})
-    public String setting(){
+    public String getSettingPage(){
         return "setting";
     }
 

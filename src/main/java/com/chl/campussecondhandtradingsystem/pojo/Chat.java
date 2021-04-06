@@ -3,34 +3,34 @@ package com.chl.campussecondhandtradingsystem.pojo;
 import java.util.Date;
 
 public class Chat {
-    private String chatId;
-    private int fromId;
-    private int toId;
+    private String chat_id;
+    private int from_id;
+    private int to_id;
     private String content;
     private Date sendTime;
 
-    public String getChatId() {
-        return chatId;
+    public String getChat_id() {
+        return chat_id;
     }
 
-    public void setChatId(String chatId) {
-        this.chatId = chatId;
+    public void setChat_id(String chat_id) {
+        this.chat_id = chat_id;
     }
 
-    public int getFromId() {
-        return fromId;
+    public int getFrom_id() {
+        return from_id;
     }
 
-    public void setFromId(int fromId) {
-        this.fromId = fromId;
+    public void setFrom_id(int from_id) {
+        this.from_id = from_id;
     }
 
-    public int getToId() {
-        return toId;
+    public int getTo_id() {
+        return to_id;
     }
 
-    public void setToId(int toId) {
-        this.toId = toId;
+    public void setTo_id(int to_id) {
+        this.to_id = to_id;
     }
 
     public String getContent() {
@@ -52,9 +52,9 @@ public class Chat {
     @Override
     public String toString() {
         return "Chat{" +
-                "chatId='" + chatId + '\'' +
-                ", fromId=" + fromId +
-                ", toId=" + toId +
+                "chat_id='" + chat_id + '\'' +
+                ", from_id=" + from_id +
+                ", to_id=" + to_id +
                 ", content='" + content + '\'' +
                 ", sendTime=" + sendTime +
                 '}';

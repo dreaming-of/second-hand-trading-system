@@ -8,14 +8,15 @@
     </sql>
 
 
-    <select id="getAllChatById">
+    <select id="getAllChatById" resultType="chat">
         select <include refid="selectField"></include>
         from chat
         where chat_id = #{id}
+        order by sendTime asc
     </select>
 
     <insert id="saveChat">
-        insert into (<include refid="selectField"></include>)
+        insert into chat(<include refid="selectField"></include>)
         values(#{chatId}, #{fromId}, #{toId}, #{content}, #{sendTime})
     </insert>
 </mapper>

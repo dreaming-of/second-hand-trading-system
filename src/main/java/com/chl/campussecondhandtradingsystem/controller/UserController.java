@@ -1,10 +1,9 @@
 package com.chl.campussecondhandtradingsystem.controller;
 
-import com.chl.campussecondhandtradingsystem.pojo.Chat;
+import com.chl.campussecondhandtradingsystem.pojo.User;
 import com.chl.campussecondhandtradingsystem.service.ChatService;
 import com.chl.campussecondhandtradingsystem.service.UserService;
 import com.chl.campussecondhandtradingsystem.utils.MyUtils;
-import com.chl.campussecondhandtradingsystem.pojo.User;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -96,16 +93,4 @@ public class UserController {
 
         return "redirect:setting";
     }
-
-    @GetMapping("chat/{user_id}")
-    public String chat(@PathVariable("user_id") int userid, Model model, HttpSession session){
-        User toUser = userService.findUserById(userid);
-        model.addAttribute("toUser", toUser);
-        User fromUser = (User) session.getAttribute("LoginUser");
-        String chatId = MyUtils.getChatId(fromUser.getUser_id(), toUser.getUser_id());
-        List<Chat> chats = chatService.getAllChatById(chatId);
-        model.addAttribute("chats", chats);
-        return "chat";
-    }
-
 }

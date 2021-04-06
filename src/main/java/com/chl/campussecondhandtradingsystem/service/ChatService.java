@@ -15,4 +15,8 @@ public class ChatService {
     public List<Chat> getAllChatById(String id){
         return chatDao.getAllChatById(id);
     }
+
+    public int saveChat(Chat chat){
+        return chatDao.saveChat(chat);
+    }
 }

@@ -1,9 +1,9 @@
 package com.chl.campussecondhandtradingsystem.controller;
 
-import com.chl.campussecondhandtradingsystem.service.GoodsService;
-import com.chl.campussecondhandtradingsystem.service.UserService;
 import com.chl.campussecondhandtradingsystem.pojo.Goods;
 import com.chl.campussecondhandtradingsystem.pojo.User;
+import com.chl.campussecondhandtradingsystem.service.GoodsService;
+import com.chl.campussecondhandtradingsystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
