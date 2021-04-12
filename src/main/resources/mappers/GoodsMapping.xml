@@ -26,4 +26,15 @@
         from goods
         where goods_id = #{id}
     </select>
+
+    <select id="getGoodsRows" resultType="int">
+        select count(*)
+        from goods
+    </select>
+
+    <select id="getGoodsList" resultType="goods">
+        select <include refid="selectField"></include>
+        from goods
+        limit #{offset}, #{limit}
+    </select>
 </mapper>

@@ -129,7 +129,7 @@
 </head>
 
 <body>
-<div th:replace="header">
+<div th:replace="index::header">
 
 </div>
 
@@ -200,6 +200,11 @@
             var data = event.data;
             $('.box').append('<div class="other"><img class="avatar" src='+touser+' /><div class="content"><p>' + data + '</p></div></div>');
             $('.box').children(':last').get(0).scrollIntoView(false);
+        }
+
+        wb.onclose = function(){
+            alert("发生异常，连接中断...");
+            location.replace("/index");
         }
 
 

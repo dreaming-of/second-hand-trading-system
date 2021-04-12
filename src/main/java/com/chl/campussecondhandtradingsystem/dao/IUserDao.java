@@ -2,6 +2,7 @@ package com.chl.campussecondhandtradingsystem.dao;
 
 import com.chl.campussecondhandtradingsystem.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,5 +18,9 @@ public interface IUserDao {
 
     User findUserById(int id);
 
-    void updateHeader(int id, String headerImg);
+    void updateHeader(@Param("user_id") int id, @Param("headerImg") String headerImg);
+
+    void updatePassword(User user);
+
+    void changeProfile(User user);
 }

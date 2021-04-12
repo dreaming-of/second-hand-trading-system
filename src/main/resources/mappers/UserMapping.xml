@@ -47,6 +47,15 @@
     </select>
 
     <update id="updateHeader">
-        update users set headerImg = #{param2} where user_id = #{param1}
+        update users set headerImg = #{headerImg} where user_id = #{user_id}
+    </update>
+
+    <update id="updatePassword">
+        update users set password = #{password} where user_id = #{user_id}
+    </update>
+
+    <update id="changeProfile">
+        update users set username = #{username}, phone_number = #{phone_number}, email = #{email}
+        where user_id = #{user_id}
     </update>
 </mapper>

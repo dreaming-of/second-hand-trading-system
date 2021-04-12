@@ -28,4 +28,12 @@ public class GoodsService {
     public Goods findGoodsById(int id){
         return goodsDao.findGoodsById(id);
     }
+
+    public List<Goods> getGoodsList(int offset, int limit){
+        return goodsDao.getGoodsList(offset, limit);
+    }
+
+    public int getGoodsRows(){
+        return goodsDao.getGoodsRows();
+    }
 }

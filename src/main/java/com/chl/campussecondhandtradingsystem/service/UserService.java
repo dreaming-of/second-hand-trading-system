@@ -44,4 +44,12 @@ public class UserService {
     public void updateHeader(int user_id, String headerUrl) {
         userDao.updateHeader(user_id, headerUrl);
     }
+
+    public void updatePassword(User user) {
+        userDao.updatePassword(user);
+    }
+
+    public void changeProfile(User user) {
+        userDao.changeProfile(user);
+    }
 }

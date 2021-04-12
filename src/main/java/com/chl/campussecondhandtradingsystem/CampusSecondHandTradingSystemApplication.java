@@ -9,5 +9,4 @@ public class CampusSecondHandTradingSystemApplication {
     public static void main(String[] args) {
         SpringApplication.run(CampusSecondHandTradingSystemApplication.class, args);
     }
-
 }

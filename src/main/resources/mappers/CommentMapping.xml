@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chl.campussecondhandtradingsystem.dao.ICommentDao">
+    <sql id="selectField">
+        id, user_id, goods_id, content, create_time
+    </sql>
+
+    <sql id="insertField">
+        user_id, goods_id, content, create_time
+    </sql>
+
+    <insert id="addComment">
+        insert into comment(<include refid="insertField"></include>)
+        values(#{user_id}, #{goods_id}, #{content}, #{create_time})
+    </insert>
+
+    <select id="getCommentsByGoodsId" resultType="comment">
+        select <include refid="selectField"></include>
+        from comment
+        where goods_id = #{goods_id}
+        order by create_time asc
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="getCommentRowsByGoodsId" resultType="int">
+        select count(*)
+        from comment
+        where goods_id = #{goods_id}
+    </select>
+</mapper>

@@ -23,7 +23,7 @@ public class ChatController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("chat/{id}")
+    @GetMapping("/chat/{id}")
     public String chat(@PathVariable("id")int toUserId, Model model, HttpSession session){
         User fromUser = (User) session.getAttribute("LoginUser");
         User toUser = userService.findUserById(toUserId);

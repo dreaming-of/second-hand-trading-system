@@ -1,6 +1,7 @@
 package com.chl.campussecondhandtradingsystem.controller;
 
 import com.chl.campussecondhandtradingsystem.pojo.Goods;
+import com.chl.campussecondhandtradingsystem.pojo.Page;
 import com.chl.campussecondhandtradingsystem.pojo.User;
 import com.chl.campussecondhandtradingsystem.service.GoodsService;
 import com.chl.campussecondhandtradingsystem.service.UserService;
@@ -24,9 +25,12 @@ public class MainController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = {"index.html", "/", "index"})
-    public String index(Model model){
-        List<Goods> goodsList = goodsService.findAllGoods();
+    @GetMapping(value = {"/index.html", "/", "/index"})
+    public String index(Model model, Page page){
+        page.setPath("/index");
+        page.setRows(goodsService.getGoodsRows());
+        page.setLimit(12);
+        List<Goods> goodsList = goodsService.getGoodsList(page.getOffset(), page.getLimit());
         List<Map<String, Object>> goodsVoList = new ArrayList<>();
         for (Goods g : goodsList) {
             User user = userService.findUserById(g.getSeller());
@@ -39,24 +43,24 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping(value = "login.html")
+    @GetMapping("/login.html")
     public String getLoginPage(HttpSession session){
         if(session.getAttribute("LoginUser") != null)
             return "index";
         return "login";
     }
 
-    @GetMapping("register.html")
+    @GetMapping("/register.html")
     public String getRegisterPage(){
         return "register";
     }
 
-    @GetMapping({"setting.html", "setting"})
+    @GetMapping({"/setting.html", "/setting"})
     public String getSettingPage(){
         return "setting";
     }
 
-    @GetMapping("test")
+    @GetMapping("/test")
     @ResponseBody
     public List t2(){
         return userService.findAllUser();
