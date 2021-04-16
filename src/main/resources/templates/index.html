@@ -16,13 +16,13 @@
     <div th:fragment="header">
         <ul class="layui-nav">
             <li class="layui-nav-item">
-                <a th:href="@{/index}">首页</span></a>
+                <a th:href="@{/index.html}">首页</span></a>
             </li>
             <li class="layui-nav-item">
-                <a href="">个人中心</a>
+                <a th:href="@{/myGoods.html}">我发布的商品</a>
             </li>
             <li class="layui-nav-item">
-                <a href="">购物车 <i class="layui-icon layui-icon-cart-simple"></i></a>
+                <a th:href="@{/shopcar.html}">购物车 <i class="layui-icon layui-icon-cart-simple"></i></a>
             </li>
 
             <div class="layui-input-inline">
@@ -35,7 +35,7 @@
             <li class="layui-nav-item fr" th:if="${session.LoginUser} != null" style="float: right">
                 <a href=""><img th:src="${session.LoginUser.headerImg}" class="layui-nav-img">[[${session.LoginUser.username}]]</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="setting.html">修改信息</a></dd>
+                    <dd><a th:href="@{/setting.html}">修改信息</a></dd>
                     <dd><a href="javascript:;">安全管理</a></dd>
                     <dd><a th:href="@{/logout}">退了</a></dd>
                 </dl>

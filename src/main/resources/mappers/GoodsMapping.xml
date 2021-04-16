@@ -4,11 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chl.campussecondhandtradingsystem.dao.IGoodsDao">
     <sql id="selectField">
-        goods_id, goods_name, price, category, img, description, seller
+        goods_id, goods_name, price, img, description, seller
     </sql>
 
     <sql id="insertField">
-        goods_name, price, category, img, description, seller
+        goods_name, price, img, description, seller
     </sql>
 
     <select id="findAllGoods" resultType="goods">
@@ -18,7 +18,7 @@
 
     <insert id="uploadGoods" parameterType="goods">
         insert into goods(<include refid="insertField"></include>)
-        values(#{goods_name},#{price},#{category},#{img},#{description}, #{seller})
+        values(#{goods_name},#{price},#{img},#{description}, #{seller})
     </insert>
 
     <select id="findGoodsById" resultType="goods">
@@ -35,6 +35,13 @@
     <select id="getGoodsList" resultType="goods">
         select <include refid="selectField"></include>
         from goods
+        order by goods_id desc
         limit #{offset}, #{limit}
+    </select>
+
+    <select id="getGoodsByUserId" resultType="goods">
+        select <include refid="selectField"></include>
+        from goods
+        where seller = #{id}
     </select>
 </mapper>

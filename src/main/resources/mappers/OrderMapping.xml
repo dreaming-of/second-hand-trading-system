@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chl.campussecondhandtradingsystem.dao.IOrderDetailsDao">
+    <sql id="selectOrder">
+        id, order_id, seller, buyer, create_time, status
+    </sql>
+
+    <sql id="insertOrder">
+        order_id, seller, buyer, create_time, status
+    </sql>
+    
+    <insert id="addOrder">
+        insert into orders(<include refid="insertOrder"></include>)
+        values(#{order_id}, #{seller}, #{buyer}, #{create_time}, #{status})
+    </insert>
+
+    <select id="getOrderRows" resultType="int">
+        select distinct count(order_id)
+        from orders
+        where buyer = #{buyer}
+    </select>
+</mapper>

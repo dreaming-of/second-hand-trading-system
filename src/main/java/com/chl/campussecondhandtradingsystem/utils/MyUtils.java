@@ -1,5 +1,7 @@
 package com.chl.campussecondhandtradingsystem.utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 public class MyUtils {
@@ -15,5 +17,13 @@ public class MyUtils {
         }else{
             return toId + split + fromId;
         }
+    }
+
+    public static String getOrderId(){
+        Date date = new Date();
+        SimpleDateFormat sd = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        String nowTime = sd.format(date);
+        String uuid = getUUID();
+        return nowTime + uuid.substring(0, 6);
     }
 }

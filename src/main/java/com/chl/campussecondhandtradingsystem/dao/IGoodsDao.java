@@ -18,4 +18,6 @@ public interface IGoodsDao {
     List<Goods> getGoodsList(@Param("offset") int offset, @Param("limit") int limit);
 
     int getGoodsRows();
+
+    List<Goods> getGoodsByUserId(int id);
 }

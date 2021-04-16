@@ -7,12 +7,22 @@ import com.chl.campussecondhandtradingsystem.pojo.User;
 import com.chl.campussecondhandtradingsystem.service.CommentService;
 import com.chl.campussecondhandtradingsystem.service.GoodsService;
 import com.chl.campussecondhandtradingsystem.service.UserService;
+import com.chl.campussecondhandtradingsystem.utils.MyUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +30,14 @@ import java.util.Map;
 
 @Controller
 public class GoodsController {
+    private final static Logger log = LoggerFactory.getLogger(GoodsController.class);
+
+    @Value("${trading.path.goods}")
+    private String uploadPath;
+
+    @Value("${trading.path.domain}")
+    private String domain;
+
     @Autowired
     private GoodsService goodsService;
 
@@ -61,9 +79,27 @@ public class GoodsController {
         return "";
     }
 
-    @GetMapping
-    public String uploadGoods(Goods goods) {
+    @PostMapping("/goods/upload")
+    public String uploadGoods(MultipartFile goodsImg, Goods goods, Model model, HttpSession session) {
+        String originalFilename = goodsImg.getOriginalFilename();
+        String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
+        if (StringUtils.isBlank(suffix)){
+            model.addAttribute("error", "文件格式不确定");
+            return "addGoods";
+        }
+        String newFilename = MyUtils.getUUID() + suffix;
+        File dest = new File(uploadPath + "/" + newFilename);
+        try {
+            goodsImg.transferTo(dest);
+        } catch (IOException e) {
+            log.error("上传文件失败： " + e.getMessage());
+            throw new RuntimeException("上传文件失败");
+        }
+        String img = domain + "/img/goods/" + newFilename;
+        goods.setImg(img);
+        User u = (User) session.getAttribute("LoginUser");
+        goods.setSeller(u.getUser_id());
         goodsService.uploadGoods(goods);
-        return "";
+        return "redirect:/myGoods.html";
     }
 }

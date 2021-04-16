@@ -36,4 +36,8 @@ public class GoodsService {
     public int getGoodsRows(){
         return goodsDao.getGoodsRows();
     }
+
+    public List<Goods> getGoodsByUserId(int seller){
+        return goodsDao.getGoodsByUserId(seller);
+    }
 }

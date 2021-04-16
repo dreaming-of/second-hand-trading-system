@@ -4,7 +4,6 @@ public class Goods {
     private int goods_id;
     private String goods_name;
     private double price;
-    private int category;
     private String img;
     private String description;
     private int seller;
@@ -49,14 +48,6 @@ public class Goods {
         this.price = price;
     }
 
-    public int getCategory() {
-        return category;
-    }
-
-    public void setCategory(int category) {
-        this.category = category;
-    }
-
     public String getImg() {
         return img;
     }
@@ -71,7 +62,6 @@ public class Goods {
                 "goods_id=" + goods_id +
                 ", goods_name='" + goods_name + '\'' +
                 ", price=" + price +
-                ", category=" + category +
                 ", img='" + img + '\'' +
                 ", description='" + description + '\'' +
                 ", seller=" + seller +
