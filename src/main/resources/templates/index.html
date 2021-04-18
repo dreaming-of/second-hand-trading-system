@@ -18,13 +18,18 @@
             <li class="layui-nav-item">
                 <a th:href="@{/index.html}">首页</span></a>
             </li>
-            <li class="layui-nav-item">
+            <li class="layui-nav-item" th:if="${session.LoginUser} != null">
                 <a th:href="@{/myGoods.html}">我发布的商品</a>
             </li>
-            <li class="layui-nav-item">
-                <a th:href="@{/shopcar.html}">购物车 <i class="layui-icon layui-icon-cart-simple"></i></a>
+            <li class="layui-nav-item" th:if="${session.LoginUser} != null">
+                <a th:href="@{/myOrders.html}">我的订单</a>
             </li>
-
+            <li class="layui-nav-item" th:if="${session.LoginUser} != null">
+                <a th:href="@{/letter.html}">我的私信</a>
+            </li>
+            <li class="layui-nav-item" th:if="${session.LoginUser} != null">
+                <a th:href="@{/shopCar.html}">购物车 <i class="layui-icon layui-icon-cart-simple"></i></a>
+            </li>
             <div class="layui-input-inline">
                 <input type="text" name="username" lay-verify="required" placeholder="想买什么" autocomplete="off"
                        class="layui-input">
@@ -36,7 +41,6 @@
                 <a href=""><img th:src="${session.LoginUser.headerImg}" class="layui-nav-img">[[${session.LoginUser.username}]]</a>
                 <dl class="layui-nav-child">
                     <dd><a th:href="@{/setting.html}">修改信息</a></dd>
-                    <dd><a href="javascript:;">安全管理</a></dd>
                     <dd><a th:href="@{/logout}">退了</a></dd>
                 </dl>
             </li>

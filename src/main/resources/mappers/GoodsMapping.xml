@@ -44,4 +44,9 @@
         from goods
         where seller = #{id}
     </select>
+
+    <delete id="deleteGoods">
+        delete from goods
+        where goods_id = #{goods_id}
+    </delete>
 </mapper>

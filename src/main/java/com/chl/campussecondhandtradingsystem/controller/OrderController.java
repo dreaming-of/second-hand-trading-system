@@ -8,6 +8,8 @@ import com.chl.campussecondhandtradingsystem.service.OrderService;
 import com.chl.campussecondhandtradingsystem.utils.MyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -25,11 +27,10 @@ public class OrderController {
     @Autowired
     private OrderDetailsService orderDetailsService;
 
-
-    @PostMapping("buy")
+    @PostMapping("/buy")
     public String generateNewOrder(@RequestParam("goods") String[] goodsId, HttpSession session) {
         User u = (User) session.getAttribute("LoginUser");
-        List<OrderDetails> selectedGoods = orderDetailsService.getDetailsByGoodsIdAndSeller(goodsId, u.getUser_id());
+        List<OrderDetails> selectedGoods = orderDetailsService.getDetailsByGoodsIdAndBuyer(goodsId, u.getUser_id());
         Map<Integer, String> map = new HashMap<>();
         for (OrderDetails o : selectedGoods) {
             int seller = o.getSeller();
@@ -50,6 +51,12 @@ public class OrderController {
             order.setStatus(0);
             orderService.addOrder(order);
         }
-        return "redirect:/index";
+        return "redirect:/myOrders.html";
+    }
+
+    @GetMapping("/order/finish/{order_id}")
+    public String finishOrder(@PathVariable("order_id")String order_id){
+        orderService.updateOrder(order_id);
+        return "redirect:/myOrders.html";
     }
 }

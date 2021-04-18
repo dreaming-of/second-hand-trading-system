@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.chl.campussecondhandtradingsystem.dao.IOrderDetailsDao">
+<mapper namespace="com.chl.campussecondhandtradingsystem.dao.IOrderDao">
     <sql id="selectOrder">
         id, order_id, seller, buyer, create_time, status
     </sql>
@@ -16,9 +16,24 @@
         values(#{order_id}, #{seller}, #{buyer}, #{create_time}, #{status})
     </insert>
 
-    <select id="getOrderRows" resultType="int">
-        select distinct count(order_id)
+    <select id="getOrderByUser" resultType="order">
+        select <include refid="selectOrder"></include>
         from orders
-        where buyer = #{buyer}
+        where buyer = #{id} or seller = #{id}
     </select>
+
+    <select id="getOrderList" resultType="order">
+        select <include refid="selectOrder"></include>
+        from orders
+    </select>
+
+    <delete id="deleteOrderById">
+        delete from orders
+        where order_id = #{order_id}
+    </delete>
+
+    <update id="updateOrder">
+        update orders set status = 1
+        where order_id = #{order_id}
+    </update>
 </mapper>

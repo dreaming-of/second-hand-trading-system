@@ -5,6 +5,7 @@ public class OrderDetails {
     private String order_id;
     private int goods_id;
     private String goods_name;
+    private String goods_img;
     private double price;
     private int seller;
     private int buyer;
@@ -12,6 +13,14 @@ public class OrderDetails {
 
     public int getId() {
         return id;
+    }
+
+    public String getGoods_img() {
+        return goods_img;
+    }
+
+    public void setGoods_img(String goods_img) {
+        this.goods_img = goods_img;
     }
 
     public void setId(int id) {

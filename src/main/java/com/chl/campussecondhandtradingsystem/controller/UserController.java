@@ -4,7 +4,6 @@ import com.chl.campussecondhandtradingsystem.pojo.User;
 import com.chl.campussecondhandtradingsystem.service.UserService;
 import com.chl.campussecondhandtradingsystem.utils.MD5Utils;
 import com.chl.campussecondhandtradingsystem.utils.MyUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,16 +66,8 @@ public class UserController {
 
     @PostMapping("/upload")
     public String upload(MultipartFile headerImage, Model model, HttpSession session){
-        if (headerImage == null){
-            model.addAttribute("error","还没选择文件");
-            return "setting";
-        }
         String originalFilename = headerImage.getOriginalFilename();
         String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
-        if (StringUtils.isBlank(suffix)){
-            model.addAttribute("error", "文件格式不确定");
-            return "setting";
-        }
         String newFilename = MyUtils.getUUID() + suffix;
         File dest = new File(uploadPath + "/" + newFilename);
         try {
@@ -87,8 +78,11 @@ public class UserController {
         }
         User user = (User) session.getAttribute("LoginUser");
         String headerImg = domain + "/header/" + newFilename;
-        userService.updateHeader(user.getUser_id(), headerImg);
-
+        String oldHeader = uploadPath + user.getHeaderImg().substring(user.getHeaderImg().lastIndexOf("/"));
+        File f = new File(oldHeader);
+        user.setHeaderImg(headerImg);
+        userService.updateHeader(user.getUser_id(), user.getHeaderImg());
+        f.delete();
         return "redirect:/setting";
     }
 

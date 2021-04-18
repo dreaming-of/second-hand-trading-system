@@ -40,4 +40,8 @@ public class GoodsService {
     public List<Goods> getGoodsByUserId(int seller){
         return goodsDao.getGoodsByUserId(seller);
     }
+
+    public void deleteGoods(int goods_id) {
+        goodsDao.deleteGoods(goods_id);
+    }
 }

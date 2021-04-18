@@ -10,4 +10,6 @@ public interface IChatDao {
     List<Chat> getAllChatById(String id);
 
     int saveChat(Chat chat);
+
+    List<Chat> getChatListByUserId(int id);
 }

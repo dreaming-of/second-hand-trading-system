@@ -19,4 +19,8 @@ public class ChatService {
     public int saveChat(Chat chat){
         return chatDao.saveChat(chat);
     }
+
+    public List<Chat> getChatListByUserId(int user_id) {
+        return chatDao.getChatListByUserId(user_id);
+    }
 }

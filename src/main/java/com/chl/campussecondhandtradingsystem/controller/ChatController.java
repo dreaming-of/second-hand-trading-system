@@ -1,5 +1,7 @@
 package com.chl.campussecondhandtradingsystem.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.chl.campussecondhandtradingsystem.pojo.Chat;
 import com.chl.campussecondhandtradingsystem.pojo.User;
 import com.chl.campussecondhandtradingsystem.service.ChatService;
@@ -10,8 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -39,5 +43,17 @@ public class ChatController {
         return "chat";
     }
 
-
+    @GetMapping("/getChatDetails/{chatId}")
+    @ResponseBody
+    public String getChatDetails(@PathVariable("chatId") String chatId){
+        List<Chat> chatList = chatService.getAllChatById(chatId);
+        List<JSONObject> res = new ArrayList<>();
+        for (Chat c : chatList){
+            JSONObject js = new JSONObject();
+            js.put("from_id", c.getFrom_id());
+            js.put("content", c.getContent());
+            res.add(js);
+        }
+        return JSON.toJSONString(res);
+    }
 }

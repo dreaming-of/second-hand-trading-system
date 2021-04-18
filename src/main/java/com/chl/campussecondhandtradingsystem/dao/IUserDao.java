@@ -12,6 +12,8 @@ public interface IUserDao {
 
     User findUser(User user);
 
+    User findAdmin(User user);
+
     int insertUser(User user);
 
     int findUserByStudentNumber(String student_number);
@@ -23,4 +25,6 @@ public interface IUserDao {
     void updatePassword(User user);
 
     void changeProfile(User user);
+
+    void deleteUserById(int user_id);
 }

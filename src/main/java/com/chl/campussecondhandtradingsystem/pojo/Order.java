@@ -57,4 +57,8 @@ public class Order {
     public void setStatus(int status) {
         this.status = status;
     }
+
+    public String getStat(){
+        return status == 0 ? "未完成" : "已完成";
+    }
 }

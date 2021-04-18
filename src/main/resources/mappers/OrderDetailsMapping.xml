@@ -4,16 +4,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chl.campussecondhandtradingsystem.dao.IOrderDetailsDao">
     <sql id="selectDetails">
-        id, order_id, goods_id, goods_name, price, seller, buyer, status
+        id, order_id, goods_id, goods_name, goods_img, price, seller, buyer, status
     </sql>
 
     <sql id="insertDetails">
-        order_id, goods_id, goods_name, price, seller, buyer, status
+        order_id, goods_id, goods_name, goods_img, price, seller, buyer, status
     </sql>
 
     <insert id="insertDetails">
         insert into orderdetails(<include refid="insertDetails"></include>)
-        values(#{order_id}, #{goods_id}, #{goods_name}, #{price}, #{seller}, #{buyer}, #{status})
+        values(#{order_id}, #{goods_id}, #{goods_name}, #{goods_img}, #{price}, #{seller}, #{buyer}, #{status})
     </insert>
 
     <update id="updateOrder">
@@ -28,7 +28,7 @@
         order by seller
     </select>
 
-    <select id="getDetailsByGoodsIdAndSeller" resultType="orderDetails">
+    <select id="getDetailsByGoodsIdAndBuyer" resultType="orderDetails">
         select <include refid="selectDetails"></include>
         from orderdetails
         where buyer = #{buyer} and goods_id in
@@ -37,4 +37,25 @@
         </foreach>
     </select>
 
+    <delete id="deleteShopCarDetails">
+        delete from orderdetails
+        where goods_id = #{goods_id} and buyer = #{buyer}
+    </delete>
+
+    <delete id="deleteOrderDetails">
+        delete from orderdetails
+        where goods_id = #{goods_id}
+    </delete>
+
+    <select id="findGoodsSold" resultType="int">
+        select count(*)
+        from orderdetails
+        where goods_id = #{goods_id} and status = 1
+    </select>
+
+    <select id="getOrderDetailsByOrderId" resultType="orderDetails">
+        select <include refid="selectDetails"></include>
+        from orderdetails
+        where order_id = #{order_id}
+    </select>
 </mapper>

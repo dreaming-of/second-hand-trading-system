@@ -25,6 +25,11 @@ public class UserService {
         return userDao.findUser(user);
     }
 
+    public User findAdmin(User user){
+        user.setPassword(MD5Utils.md5(user.getPassword()));
+        return userDao.findUser(user);
+    }
+
     public int insertUser(User user) {
         user.setPassword(MD5Utils.md5(user.getPassword()));
         user.setHeaderImg(String.format("http://images.nowcoder.com/head/%dt.png", new Random().nextInt(1000)));
@@ -51,5 +56,9 @@ public class UserService {
 
     public void changeProfile(User user) {
         userDao.changeProfile(user);
+    }
+
+    public void deleteUserById(int user_id) {
+        userDao.deleteUserById(user_id);
     }
 }

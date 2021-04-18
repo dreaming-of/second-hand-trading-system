@@ -6,9 +6,9 @@ import com.chl.campussecondhandtradingsystem.pojo.Page;
 import com.chl.campussecondhandtradingsystem.pojo.User;
 import com.chl.campussecondhandtradingsystem.service.CommentService;
 import com.chl.campussecondhandtradingsystem.service.GoodsService;
+import com.chl.campussecondhandtradingsystem.service.OrderDetailsService;
 import com.chl.campussecondhandtradingsystem.service.UserService;
 import com.chl.campussecondhandtradingsystem.utils.MyUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +18,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,6 +50,9 @@ public class GoodsController {
 
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private OrderDetailsService orderDetailsService;
 
     @GetMapping("/goods/details/{goods_id}")
     public String getGoodsDetails(@PathVariable("goods_id") int goods_id, Model model, Page page) {
@@ -74,19 +81,10 @@ public class GoodsController {
         return "details";
     }
 
-    @GetMapping("findAllGoods")
-    public String findAllGoods(Model model) {
-        return "";
-    }
-
     @PostMapping("/goods/upload")
     public String uploadGoods(MultipartFile goodsImg, Goods goods, Model model, HttpSession session) {
         String originalFilename = goodsImg.getOriginalFilename();
         String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
-        if (StringUtils.isBlank(suffix)){
-            model.addAttribute("error", "文件格式不确定");
-            return "addGoods";
-        }
         String newFilename = MyUtils.getUUID() + suffix;
         File dest = new File(uploadPath + "/" + newFilename);
         try {
@@ -95,11 +93,42 @@ public class GoodsController {
             log.error("上传文件失败： " + e.getMessage());
             throw new RuntimeException("上传文件失败");
         }
-        String img = domain + "/img/goods/" + newFilename;
+        String img = domain + "/goods_img/" + newFilename;
         goods.setImg(img);
         User u = (User) session.getAttribute("LoginUser");
         goods.setSeller(u.getUser_id());
         goodsService.uploadGoods(goods);
         return "redirect:/myGoods.html";
+    }
+
+    @GetMapping("/goods_img/{fileName}")
+    public void getHeader(@PathVariable("fileName")String filename, HttpServletResponse response){
+        filename = uploadPath + "/" + filename;
+        String suffix = filename.substring(filename.lastIndexOf('.'));
+        response.setContentType("image/" + suffix);
+        try(
+                OutputStream out = response.getOutputStream();
+                FileInputStream in = new FileInputStream(filename)
+        ) {
+            byte[] buffer = new byte[1024];
+            int b = 0;
+            while((b = in.read(buffer)) != -1){
+                out.write(buffer,0, b);
+            }
+        } catch (IOException e) {
+            log.error("获取头像失败: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/goods/delete/{goods_id}")
+    @ResponseBody
+    public String deleteGoods(@PathVariable("goods_id")int goods_id){
+        boolean goodsSold = orderDetailsService.findGoodsSold(goods_id);
+        if (goodsSold){
+            return "该物品在一个尚未完成的订单中，无法删除！";
+        }
+        orderDetailsService.deleteOrderDetails(goods_id);
+        goodsService.deleteGoods(goods_id);
+        return "删除成功！";
     }
 }

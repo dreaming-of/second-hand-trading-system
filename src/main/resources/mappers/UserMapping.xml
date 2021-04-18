@@ -16,10 +16,17 @@
         from users
     </select>
 
-    <select id="findUser" parameterType="user" resultType="user">
+    <select id="findUser" resultType="user">
         select
         <include refid="selectField"></include>
         from users where username = #{username} and password = #{password};
+    </select>
+
+    <select id="findAdmin" resultType="user">
+        select
+        <include refid="selectField"></include>
+        from users
+        where username = #{username} and password = #{password} and status = 1
     </select>
 
     <insert id="insertUser" parameterType="user" keyProperty="user_id">
@@ -58,4 +65,9 @@
         update users set username = #{username}, phone_number = #{phone_number}, email = #{email}
         where user_id = #{user_id}
     </update>
+
+    <delete id="deleteUserById">
+        delete from users
+        where user_id = #{user_id}
+    </delete>
 </mapper>

@@ -1,12 +1,7 @@
 package com.chl.campussecondhandtradingsystem.controller;
 
-import com.chl.campussecondhandtradingsystem.pojo.Goods;
-import com.chl.campussecondhandtradingsystem.pojo.OrderDetails;
-import com.chl.campussecondhandtradingsystem.pojo.Page;
-import com.chl.campussecondhandtradingsystem.pojo.User;
-import com.chl.campussecondhandtradingsystem.service.GoodsService;
-import com.chl.campussecondhandtradingsystem.service.OrderDetailsService;
-import com.chl.campussecondhandtradingsystem.service.UserService;
+import com.chl.campussecondhandtradingsystem.pojo.*;
+import com.chl.campussecondhandtradingsystem.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +23,12 @@ public class MainController {
 
     @Autowired
     private OrderDetailsService orderDetailsService;
+
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private ChatService chatService;
 
     @GetMapping(value = {"/index.html", "/", "/index"})
     public String index(Model model, Page page){
@@ -64,12 +65,12 @@ public class MainController {
         return "setting";
     }
 
-    @GetMapping("/shopcar.html")
+    @GetMapping("/shopCar.html")
     public String getShopCarPage(HttpSession session, Model model){
         User u = (User) session.getAttribute("LoginUser");
         List<OrderDetails> shopCarDetails = orderDetailsService.getShopCarDetails(u.getUser_id());
         model.addAttribute("shopCarDetails", shopCarDetails);
-        return "shopcar";
+        return "shopCar";
     }
 
     @GetMapping("/addGoods.html")
@@ -83,6 +84,40 @@ public class MainController {
         List<Goods> myGoodsList = goodsService.getGoodsByUserId(u.getUser_id());
         model.addAttribute("goodsList", myGoodsList);
         return "myGoods";
+    }
+
+    @GetMapping("/myOrders.html")
+    public String getMyOrdersPage(Model model, HttpSession session){
+        User u = (User) session.getAttribute("LoginUser");
+        List<Order> orderList = orderService.getOrderByUser(u.getUser_id());
+        List<Map<String, Object>> orderVo = new ArrayList<>();
+        for (Order o : orderList){
+            List<OrderDetails> orderDetailsList = orderDetailsService.getOrderDetailsByOrderId(o.getOrder_id());
+            Map<String, Object> map = new HashMap<>();
+            map.put("order", o);
+            map.put("orderDetailsList", orderDetailsList);
+            orderVo.add(map);
+        }
+        model.addAttribute("orderVoList", orderVo);
+        return "myOrders";
+    }
+
+    @GetMapping("/letter.html")
+    public String getLettersPage(Model model, HttpSession session){
+        User u = (User) session.getAttribute("LoginUser");
+        List<Chat> chatList = chatService.getChatListByUserId(u.getUser_id());
+        List<User> userVo = new ArrayList<>();
+        for (Chat c : chatList){
+            User to;
+            if (c.getFrom_id() == u.getUser_id()){
+                to = userService.findUserById(c.getTo_id());
+            }else{
+                to = userService.findUserById(c.getFrom_id());
+            }
+            userVo.add(to);
+        }
+        model.addAttribute("userList", userVo);
+        return "letter";
     }
 
     @PostMapping("/test")

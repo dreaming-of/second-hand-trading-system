@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>后台</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+
+    <style>
+        img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .item {
+            position: relative;
+            height: 100px;
+        }
+
+        .headerImg {
+            position: absolute;
+            width: 42px;
+            height: 42px;
+            margin-left: 25px;
+            margin-top: 25px;
+        }
+
+        .name {
+            position: absolute;
+            margin-left: 75px;
+            margin-top: 25px;
+        }
+
+        .side {
+            height: 500px;
+            width: 200px;
+            float: left;
+
+        }
+
+        .mytable {
+            width: 1100px;
+            height: 500px;
+            float: left;
+        }
+
+        table {
+            margin-left: 50px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="side">
+        <ul class="nav flex-column nav-pills nav-fill">
+            <div class="item" id="1">
+                <div class="headerImg">
+                    <img th:src="${session.admin.headerImg}">
+                </div>
+                <div class="name">
+                    <p th:text="|管理员:${session.admin.username}|"></p>
+                </div>
+            </div>
+            <li class="nav-item">
+                <a class="nav-link active" th:href="@{/admin/adminUsers}">用户管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin/adminGoods}">商品管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin/adminOrders}">订单管理</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mytable">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>用户名</th>
+                    <th>头像</th>
+                    <th>学号</th>
+                    <th>手机号</th>
+                    <th>邮箱</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user:${userList}">
+                    <td th:text="${userStat.count}">1</td>
+                    <td th:text="${user.username}">Mark</td>
+                    <td ><img th:src="${user.headerImg}"></td>
+                    <td th:text="${user.student_number}">Otto</td>
+                    <td th:text="${user.phone_number}">1</td>
+                    <td th:text="${user.email}">1</td>
+                    <th><a class="btn btn-danger" th:href="@{/admin/delete/user/{userId}(userId=${user.user_id})}" role="button">删除</a></th>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</body>
+
+
+</html>

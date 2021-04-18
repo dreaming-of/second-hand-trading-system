@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>后台</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+
+    <style>
+        img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .item {
+            position: relative;
+            height: 100px;
+        }
+
+        .headerImg {
+            position: absolute;
+            width: 42px;
+            height: 42px;
+            margin-left: 25px;
+            margin-top: 25px;
+        }
+
+        .name {
+            position: absolute;
+            margin-left: 75px;
+            margin-top: 25px;
+        }
+
+        .side {
+            height: 500px;
+            width: 200px;
+            float: left;
+
+        }
+
+        .mytable {
+            width: 1100px;
+            height: 500px;
+            float: left;
+        }
+
+        table {
+            margin-left: 50px;
+            margin-top: 20px;
+        }
+
+        .red{
+            color: red;
+        }
+
+        .green{
+            color: green;
+        }
+    </style>
+</head>
+<script th:src="@{/layui/layui.js}"></script>
+
+<body>
+    <div class="side" >
+        <ul class="nav flex-column nav-pills nav-fill">
+            <div class="item" id="1">
+                <div class="headerImg">
+                    <img th:src="${session.admin.headerImg}">
+                </div>
+                <div class="name">
+                    <p th:text="|管理员:${session.admin.username}|"></p>
+                </div>
+            </div>
+            <li class="nav-item">
+                <a class="nav-link " th:href="@{/admin/adminUsers}">用户管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " th:href="@{/admin/adminGoods}">商品管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" th:href="@{/admin/adminOrders}">订单管理</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mytable">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>订单编号</th>
+                    <th>买家</th>
+                    <th>卖家</th>
+                    <th>创建时间</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="orders:${orderList}">
+                    <td th:text="${ordersStat.count}">1</td>
+                    <td th:text="${orders.o.order_id}">Mark</td>
+                    <td th:text="${orders.buyer.username}"></td>
+                    <td th:text="${orders.seller.username}">Otto</td>
+                    <td th:text="${#dates.format(orders.o.create_time,'yyyy-MM-dd HH:mm:ss')}">1</td>
+                    <td th:text="${orders.o.stat}" th:class="${orders.o.status==0?'red':'green'}">1</td>
+                    <th>
+                        <a class="btn btn-danger btn-sm" th:href="@{/admin/delete/order/{orderId}(orderId=${orders.o.order_id})}" role="button">删除</a>
+                        <a th:if="${orders.o.status==0}"
+                           th:href="@{/admin/order/finish/{order_id}(order_id=${orders.o.order_id})}" class="btn btn-success btn-sm " role="button">
+                            完成订单</a>
+                    </th>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</body>
+
+
+</html>

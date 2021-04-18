@@ -20,12 +20,27 @@ public class OrderDetailsService {
         return orderDetailsDao.getShopCarDetails(id);
     }
 
-    public List<OrderDetails> getDetailsByGoodsIdAndSeller(String[] ids, int seller){
-        return orderDetailsDao.getDetailsByGoodsIdAndSeller(ids, seller);
+    public List<OrderDetails> getDetailsByGoodsIdAndBuyer(String[] ids, int buyer){
+        return orderDetailsDao.getDetailsByGoodsIdAndBuyer(ids, buyer);
     }
 
     public void updateDetails(OrderDetails orderDetails){
         orderDetailsDao.updateOrder(orderDetails);
     }
 
+    public void deleteShopCarDetails(int goods_id, int user_id) {
+        orderDetailsDao.deleteShopCarDetails(goods_id, user_id);
+    }
+
+    public boolean findGoodsSold(int goods_id) {
+        return orderDetailsDao.findGoodsSold(goods_id) != 0;
+    }
+
+    public void deleteOrderDetails(int goods_id){
+        orderDetailsDao.deleteOrderDetails(goods_id);
+    }
+
+    public List<OrderDetails> getOrderDetailsByOrderId(String order_id){
+        return orderDetailsDao.getOrderDetailsByOrderId(order_id);
+    }
 }

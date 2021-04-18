@@ -20,4 +20,6 @@ public interface IGoodsDao {
     int getGoodsRows();
 
     List<Goods> getGoodsByUserId(int id);
+
+    void deleteGoods(int goods_id);
 }

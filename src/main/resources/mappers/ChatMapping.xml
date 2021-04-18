@@ -17,6 +17,13 @@
 
     <insert id="saveChat">
         insert into chat(<include refid="selectField"></include>)
-        values(#{chatId}, #{fromId}, #{toId}, #{content}, #{sendTime})
+        values(#{chat_id}, #{from_id}, #{to_id}, #{content}, #{sendTime})
     </insert>
+
+    <select id="getChatListByUserId" resultType="chat">
+        select <include refid="selectField"></include>
+        from chat
+        where from_id = #{id} or to_id = #{id}
+        group by chat_id
+    </select>
 </mapper>
