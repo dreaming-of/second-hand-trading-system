@@ -98,7 +98,11 @@
                     <td th:text="${user.student_number}">Otto</td>
                     <td th:text="${user.phone_number}">1</td>
                     <td th:text="${user.email}">1</td>
-                    <th><a class="btn btn-danger" th:href="@{/admin/delete/user/{userId}(userId=${user.user_id})}" role="button">删除</a></th>
+                    <th>
+                        <a class="btn btn-info" th:href="@{/admin/change/user/{userId}(userId=${user.user_id})}" role="button">修改信息</a>
+                        <a class="btn btn-danger" th:href="@{/admin/delete/user/{userId}(userId=${user.user_id})}" role="button">删除</a>
+                        <a th:if="${user.status == 0}" class="btn btn-success" th:href="@{/admin/upgrate/user/{userId}(userId=${user.user_id})}" role="button">提升为管理员</a>
+                    </th>
                 </tr>
 
             </tbody>

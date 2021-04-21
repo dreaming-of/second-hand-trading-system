@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>后台</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+
+    <style>
+        img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .item {
+            position: relative;
+            height: 100px;
+        }
+
+        .headerImg {
+            position: absolute;
+            width: 42px;
+            height: 42px;
+            margin-left: 25px;
+            margin-top: 25px;
+        }
+
+        .name {
+            position: absolute;
+            margin-left: 75px;
+            margin-top: 25px;
+        }
+
+        .side {
+            height: 500px;
+            width: 200px;
+            float: left;
+
+        }
+
+        .mytable {
+            width: 1100px;
+            height: 500px;
+            float: left;
+        }
+
+        table {
+            margin-left: 50px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+
+<body>
+<div class="side">
+    <ul class="nav flex-column nav-pills nav-fill">
+        <div class="item" id="1">
+            <div class="headerImg">
+                <img th:src="${session.admin.headerImg}">
+            </div>
+            <div class="name">
+                <p th:text="|管理员:${session.admin.username}|"></p>
+            </div>
+        </div>
+        <li class="nav-item">
+            <a class="nav-link " th:href="@{/admin/adminUsers}">用户管理</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/adminGoods}">商品管理</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/adminOrders}">订单管理</a>
+        </li>
+    </ul>
+</div>
+
+    <div class="mytable">
+        <h6 class="text-left text-info border-bottom pb-2 mt-5">修改信息</h6>
+        <form class="mt-5" th:action="@{/admin/change/user}" method="post">
+            <div class="form-group row mt-4">
+                <label for="username" class="col-sm-2 col-form-label text-right">用户名:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="username" name="username" th:value="${user.username}" required>
+                </div>
+            </div>
+            <div class="form-group row mt-4">
+                <label for="stn" class="col-sm-2 col-form-label text-right">学号：</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="stn" name="student_number" th:value="${user.student_number}" required>
+                </div>
+            </div>
+            <div class="form-group row mt-4">
+                <label for="phn" class="col-sm-2 col-form-label text-right">手机号:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="phn" name="phone_number" th:value="${user.phone_number}" required>
+                </div>
+            </div>
+            <div class="form-group row mt-4">
+                <label for="email" class="col-sm-2 col-form-label text-right">邮箱:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="email" name="email" th:value="${user.email}" required>
+                </div>
+            </div>
+            <div class="form-group row mt-4">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-10 text-center">
+                    <button type="submit" class="btn btn-info text-white form-control">立即保存</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+
+</html>

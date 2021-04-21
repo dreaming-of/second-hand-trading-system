@@ -32,13 +32,14 @@ public class UserService {
 
     public int insertUser(User user) {
         user.setPassword(MD5Utils.md5(user.getPassword()));
+        user.setStatus(0);
         user.setHeaderImg(String.format("http://images.nowcoder.com/head/%dt.png", new Random().nextInt(1000)));
         return userDao.insertUser(user);
     }
 
     public Map<String, Object> findUserByStudentNumber(String student_number){
         Map<String, Object> res =  new HashMap<>();
-        res.put("flag" ,userDao.findUserByStudentNumber(student_number));
+        res.put("flag" ,userDao.findUserByStudentNumber(student_number) == 1);
         return res;
     }
 
@@ -60,5 +61,9 @@ public class UserService {
 
     public void deleteUserById(int user_id) {
         userDao.deleteUserById(user_id);
+    }
+
+    public void upgrateUserById(int user_id) {
+        userDao.upgrateUserById(user_id);
     }
 }

@@ -27,4 +27,6 @@ public interface IUserDao {
     void changeProfile(User user);
 
     void deleteUserById(int user_id);
+
+    void upgrateUserById(int user_id);
 }

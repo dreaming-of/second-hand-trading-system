@@ -65,6 +65,25 @@ public class AdminController {
         return "redirect:/admin/adminUsers";
     }
 
+    @GetMapping("/change/user/{userId}")
+    public String getChangeUserPage(@PathVariable("userId")int user_id, Model model){
+        User user = userService.findUserById(user_id);
+        model.addAttribute("user", user);
+        return "admin/adminChangeUsers";
+    }
+
+    @PostMapping("/change/user")
+    public String changeUser(User user){
+        userService.changeProfile(user);
+        return "redirect:/admin/adminUsers";
+    }
+
+    @GetMapping("/upgrate/user/{userId}")
+    public String upgrateUser(@PathVariable("userId")int user_id){
+        userService.upgrateUserById(user_id);
+        return "redirect:/admin/adminUsers";
+    }
+
     @GetMapping("/adminGoods")
     public String adminGoods(Model model){
         List<Goods> goodsList = goodsService.findAllGoods();

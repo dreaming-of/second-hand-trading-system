@@ -12,8 +12,9 @@
 </head>
 
 <body>
-<form action="/search" method="POST">
+
     <div th:fragment="header">
+        <form action="/search" method="POST">
         <ul class="layui-nav">
             <li class="layui-nav-item">
                 <a th:href="@{/index.html}">首页</span></a>
@@ -41,7 +42,7 @@
                 <a href=""><img th:src="${session.LoginUser.headerImg}" class="layui-nav-img">[[${session.LoginUser.username}]]</a>
                 <dl class="layui-nav-child">
                     <dd><a th:href="@{/setting.html}">修改信息</a></dd>
-                    <dd><a th:href="@{/logout}">退了</a></dd>
+                    <dd><a th:href="@{/logout}">登出</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item fr" th:if="${session.LoginUser} == null"  style="float: right">
@@ -52,8 +53,9 @@
             </li>
 
         </ul>
+        </form>
     </div>
-</form>
+
     <div class="w mycontainer">
         <ul>
             <li th:each="map:${goodsList}">
@@ -90,10 +92,6 @@
 </nav>
 
 
-
-
-
-    <div class="footer"></div>
 
 
 

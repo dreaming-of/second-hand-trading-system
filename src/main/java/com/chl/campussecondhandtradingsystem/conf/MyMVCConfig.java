@@ -12,7 +12,7 @@ public class MyMVCConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/register", "/register.html", "/findUserByStudentNumber","/goods_img/**","/login","/login.html", "/", "/index.html", "/index", "/css/**", "/js/**", "/img/**", "/font/**", "/layui/**");
+                .excludePathPatterns("/admin/**","/register", "/register.html", "/findUserByStudentNumber","/goods_img/**","/header/**","/login","/login.html", "/", "/index.html", "/index", "/css/**", "/js/**", "/img/**", "/font/**", "/layui/**");
 
         registry.addInterceptor(new AdminInterceptor())
                 .addPathPatterns("/admin/**")

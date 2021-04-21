@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MainController {
@@ -118,12 +118,6 @@ public class MainController {
         }
         model.addAttribute("userList", userVo);
         return "letter";
-    }
-
-    @PostMapping("/test")
-    @ResponseBody
-    public List t2(@RequestParam("goods") String[] goodsId){
-        return Arrays.asList(goodsId);
     }
 
 }

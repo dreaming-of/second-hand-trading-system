@@ -11,6 +11,10 @@
         .fr {
             float: right;
         }
+        img {
+            width: 150px;
+            height: 150px;
+        }
     </style>
 </head>
 <script th:src="@{/layui/layui.js}"></script>
@@ -40,7 +44,7 @@
             <tr th:each="details:${shopCarDetails}">
                 <td><input type="checkbox" name="goods" th:value="${details.goods_id}"></td>
                 <td th:text="${detailsStat.count}">1</td>
-                <td th:text="${details.goods_img}"></td>
+                <td><img th:src="${details.goods_img}"></td>
                 <td th:text="${details.goods_name}">1</td>
                 <td th:text="|${details.price}元|">1</td>
                 <td><a th:href="@{/delete/shopcar/{goods_id}(goods_id=${details.goods_id})}" class="btn btn-danger btn-sm active" role="button">删除</a></td>

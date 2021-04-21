@@ -12,7 +12,6 @@
 <style>
     .register {
         width: 1000px;
-        background-color: hsl(315, 24%, 50%);
         margin: 0 auto;
     }
 
@@ -116,7 +115,7 @@
                     method: 'get',
                     url: "/findUserByStudentNumber",
                     data: {
-                        id: sn
+                        student_number: sn
                     },
                     dataType: "json",
                     success: function (res) {

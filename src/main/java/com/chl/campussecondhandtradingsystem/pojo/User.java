@@ -8,6 +8,16 @@ public class User {
     private String phone_number;
     private String email;
     private String headerImg;
+    private int status;
+
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public int getUser_id() {
         return user_id;
@@ -65,16 +75,4 @@ public class User {
         this.headerImg = headerImg;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "user_id=" + user_id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", student_number='" + student_number + '\'' +
-                ", phone_number='" + phone_number + '\'' +
-                ", email='" + email + '\'' +
-                ", headerImg='" + headerImg + '\'' +
-                '}';
-    }
 }

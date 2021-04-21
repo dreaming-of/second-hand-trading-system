@@ -15,7 +15,7 @@ body {
 .mycontainer {
     position: relative;
     margin-top: 10px;
-    background-color: pink;
+    /*background-color: pink;*/
 }
 
 .mycontainer li {
@@ -25,7 +25,7 @@ body {
     margin-bottom: 10px;
     width: 350px;
     height: 400px;
-    background-color: red;
+    background-color: #ffb0e3;
 }
 
 .mycontainer li img {
@@ -87,7 +87,7 @@ body {
     margin-top: 10px;
     position: relative;
     height: 500px;
-    background-color: pink;
+    /*background-color: pink;*/
 }
 
 .layui-carousel img {

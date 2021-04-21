@@ -4,11 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chl.campussecondhandtradingsystem.dao.IUserDao">
     <sql id="selectField">
-        user_id, username, password, student_number, phone_number, email, headerImg
+        user_id, username, password, student_number, phone_number, email, headerImg, status
     </sql>
 
     <sql id="insertField">
-        username, password, student_number, phone_number, email, headerImg
+        username, password, student_number, phone_number, email, headerImg, status
     </sql>
 
     <select id="findAllUser" resultType="user">
@@ -31,7 +31,7 @@
 
     <insert id="insertUser" parameterType="user" keyProperty="user_id">
         insert into users(<include refid="insertField"></include>)
-        values(#{username}, #{password}, #{student_number}, #{phone_number}, #{email}, #{headerImg});
+        values(#{username}, #{password}, #{student_number}, #{phone_number}, #{email}, #{headerImg}, #{status});
     </insert>
 
     <select id="findUserByStudentNumber" resultType="int">
@@ -62,7 +62,7 @@
     </update>
 
     <update id="changeProfile">
-        update users set username = #{username}, phone_number = #{phone_number}, email = #{email}
+        update users set username = #{username}, phone_number = #{phone_number}, email = #{email}, student_number = #{student_number}
         where user_id = #{user_id}
     </update>
 
@@ -70,4 +70,9 @@
         delete from users
         where user_id = #{user_id}
     </delete>
+
+    <update id="upgrateUserById">
+        update users set status = 1
+        where user_id = #{user_id}
+    </update>
 </mapper>
