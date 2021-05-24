@@ -52,6 +52,12 @@ public class AdminController {
         return "redirect:/admin/adminUsers";
     }
 
+    @GetMapping("logout")
+    public String logout(HttpSession session){
+        session.removeAttribute("admin");
+        return "redirect:/admin/login.html";
+    }
+
     @GetMapping("/adminUsers")
     public String adminUsers(Model model){
         List<User> userList = userService.findAllUser();
@@ -131,7 +137,7 @@ public class AdminController {
 
     @GetMapping("/order/finish/{order_id}")
     public String finishOrder(@PathVariable("order_id")String order_id){
-        orderService.updateOrder(order_id);
+        orderService.updateOrder(order_id, 3);
         return "redirect:/admin/adminOrders";
     }
 }

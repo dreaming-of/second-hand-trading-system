@@ -55,7 +55,7 @@ public class UserController {
     @PostMapping("/register")
     public String insertUser(User user){
         userService.insertUser(user);
-        return "redirect:/login";
+        return "redirect:/login.html";
     }
 
     @GetMapping("/findUserByStudentNumber")

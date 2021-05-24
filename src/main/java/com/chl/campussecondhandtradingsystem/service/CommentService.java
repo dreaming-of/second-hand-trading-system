@@ -25,4 +25,9 @@ public class CommentService {
     public int getCommentRowsByGoodsId(int goods_id){
         return commentDao.getCommentRowsByGoodsId(goods_id);
     }
+
+    public List<Comment> getCommentList(){
+        return commentDao.getCommentList();
+    }
+
 }

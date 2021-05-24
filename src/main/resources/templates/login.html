@@ -14,8 +14,7 @@
         .login {
             margin: 100px auto;
             width: 500px;
-            height: 400px;
-
+            height: 300px;
         }
     </style>
 </head>
@@ -36,11 +35,13 @@
 </div>
 <div class="login">
     <h1 th:text="${msg}" style="color: red"></h1>
-    <form action="/login" method="post">
+    <form th:action="@{/login}" method="post">
         <div class="layui-form-item">
-            <label class="layui-form-label">用户名</label>
+            <label class="layui-form-label">学号</label>
             <div class="layui-input-inline">
-                <input type="text" name="username" lay-verify="title" autocomplete="off" placeholder="请输入用户名" class="layui-input">
+                <input onkeyup="this.value=this.value.replace(/[^\d]/g,'')"
+                       onafterpaste="this.value=this.value.replace(/[^\d]/g,'')"
+                        type="text" name="student_number" lay-verify="title" autocomplete="off" placeholder="请输入用户名" class="layui-input">
             </div>
         </div>
         <br>
@@ -53,7 +54,7 @@
         </div>
         <br>
         <div>
-            <button type="submit" class="layui-btn layui-btn-normal layui-btn-radius">百搭按钮</button>
+            <button type="submit" class="layui-btn layui-btn-normal layui-btn-radius">登录</button>
         </div>
     </form>
 </div>

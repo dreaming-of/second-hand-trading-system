@@ -54,9 +54,9 @@ public class OrderController {
         return "redirect:/myOrders.html";
     }
 
-    @GetMapping("/order/finish/{order_id}")
-    public String finishOrder(@PathVariable("order_id")String order_id){
-        orderService.updateOrder(order_id);
+    @GetMapping("/order/update/{order_id}/{status}")
+    public String finishOrder(@PathVariable("order_id")String order_id, @PathVariable("status")int status){
+        orderService.updateOrder(order_id, status);
         return "redirect:/myOrders.html";
     }
 }

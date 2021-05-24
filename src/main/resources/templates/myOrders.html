@@ -46,10 +46,13 @@
                 <td th:text="${orderVoStat.count}">1</td>
                 <td th:text="${orderVo.order.order_id}">订单号</td>
                 <td th:text="${#dates.format(orderVo.order.create_time,'yyyy-MM-dd HH:mm:ss')}">创建时间</td>
-                <td th:text="${orderVo.order.stat}" th:class="${orderVo.order.status==0?'red':'green'}">状态</td>
-                <td th:if="${orderVo.order.buyer==session.LoginUser.user_id && orderVo.order.status==0} ">
-                    <a th:href="@{/chat/{id}(id=${orderVo.order.seller})}" class="btn btn-info btn-sm" role="button">联系卖家</a>
-                    <a th:href="@{/order/finish/{order_id}(order_id=${orderVo.order.order_id})}" class="btn btn-success btn-sm" role="button">确认收货</a>
+                <td th:text="${orderVo.order.stat}" th:class="${orderVo.order.status!=3?'red':'green'}">状态</td>
+                <td th:if="${orderVo.order.status!=3} ">
+                    <a th:if="${orderVo.order.seller != session.LoginUser.user_id}" th:href="@{/chat/{id}(id=${orderVo.order.seller})}" class="btn btn-info btn-sm" role="button">联系对方</a>
+                    <a th:if="${orderVo.order.seller == session.LoginUser.user_id}" th:href="@{/chat/{id}(id=${orderVo.order.buyer})}" class="btn btn-info btn-sm" role="button">联系对方</a>
+                    <a th:if="${orderVo.order.status==0 && orderVo.order.buyer == session.LoginUser.user_id}" th:href="@{'/orderpay.html/' + ${orderVo.order.order_id}}" class="btn btn-success btn-sm" role="button">支付订单</a>
+                    <a th:if="${orderVo.order.status==1 && orderVo.order.seller == session.LoginUser.user_id}" th:href="@{'/order/update/'+${orderVo.order.order_id}+'/2'}" class="btn btn-success btn-sm" role="button">完成发货</a>
+                    <a th:if="${orderVo.order.status==2 && orderVo.order.buyer == session.LoginUser.user_id}" th:href="@{'/order/update/'+${orderVo.order.order_id}+'/3'}" class="btn btn-success btn-sm" role="button">确认收货</a>
                 </td>
             </tr>
             <tr th:each="detials:${orderVo.orderDetailsList}">

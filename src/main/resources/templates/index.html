@@ -31,15 +31,18 @@
             <li class="layui-nav-item" th:if="${session.LoginUser} != null">
                 <a th:href="@{/shopCar.html}">购物车 <i class="layui-icon layui-icon-cart-simple"></i></a>
             </li>
-            <div class="layui-input-inline">
-                <input type="text" name="username" lay-verify="required" placeholder="想买什么" autocomplete="off"
-                       class="layui-input">
-            </div>
-            <button type="submit" class="layui-btn layui-btn-normal">查找</button>
+            <li class="layui-nav-item" th:if="${session.LoginUser} != null">
+                <a th:href="@{/comment.html}">留言区</a>
+            </li>
+<!--            <div class="layui-input-inline">-->
+<!--                <input type="text" name="username" lay-verify="required" placeholder="想买什么" autocomplete="off"-->
+<!--                       class="layui-input">-->
+<!--            </div>-->
+<!--            <button type="submit" class="layui-btn layui-btn-normal">查找</button>-->
 
 
             <li class="layui-nav-item fr" th:if="${session.LoginUser} != null" style="float: right">
-                <a href=""><img th:src="${session.LoginUser.headerImg}" class="layui-nav-img">[[${session.LoginUser.username}]]</a>
+                <a href="javascript:;"><img th:src="${session.LoginUser.headerImg}" class="layui-nav-img">[[${session.LoginUser.username}]]</a>
                 <dl class="layui-nav-child">
                     <dd><a th:href="@{/setting.html}">修改信息</a></dd>
                     <dd><a th:href="@{/logout}">登出</a></dd>

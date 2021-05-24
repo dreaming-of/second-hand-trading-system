@@ -29,7 +29,11 @@ public class OrderService {
         orderDao.deleteOrderById(order_id);
     }
 
-    public void updateOrder(String order_id) {
-        orderDao.updateOrder(order_id);
+    public void updateOrder(String order_id, int status) {
+        orderDao.updateOrder(order_id, status);
+    }
+
+    public Order findOrderById(String order_id){
+        return orderDao.findOrderById(order_id);
     }
 }

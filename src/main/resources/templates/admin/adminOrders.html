@@ -29,10 +29,16 @@
 
         .name {
             position: absolute;
-            margin-left: 75px;
+            margin-left: 80px;
             margin-top: 25px;
         }
 
+        .msg {
+            position: absolute;
+            width: 100px;
+            margin-left: 80px;
+            margin-top: 50px;
+        }
         .side {
             height: 500px;
             width: 200px;
@@ -72,6 +78,9 @@
                 <div class="name">
                     <p th:text="|管理员:${session.admin.username}|"></p>
                 </div>
+                <div class="msg">
+                    <a class="btn btn-danger btn-sm" th:href="@{/admin/logout}" role="button">退出</a>
+                </div>
             </div>
             <li class="nav-item">
                 <a class="nav-link " th:href="@{/admin/adminUsers}">用户管理</a>
@@ -108,8 +117,8 @@
                     <td th:text="${orders.o.stat}" th:class="${orders.o.status==0?'red':'green'}">1</td>
                     <th>
                         <a class="btn btn-danger btn-sm" th:href="@{/admin/delete/order/{orderId}(orderId=${orders.o.order_id})}" role="button">删除</a>
-                        <a th:if="${orders.o.status==0}"
-                           th:href="@{/admin/order/finish/{order_id}(order_id=${orders.o.order_id})}" class="btn btn-success btn-sm " role="button">
+                        <a th:if="${orders.o.status!=3}"
+                           th:href="@{'/admin/order/finish/'+${orders.o.order_id}}" class="btn btn-success btn-sm " role="button">
                             完成订单</a>
                     </th>
                 </tr>

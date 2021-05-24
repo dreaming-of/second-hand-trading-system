@@ -20,11 +20,13 @@
         select <include refid="selectOrder"></include>
         from orders
         where buyer = #{id} or seller = #{id}
+        order by create_time desc
     </select>
 
     <select id="getOrderList" resultType="order">
         select <include refid="selectOrder"></include>
         from orders
+        order by create_time desc
     </select>
 
     <delete id="deleteOrderById">
@@ -33,7 +35,13 @@
     </delete>
 
     <update id="updateOrder">
-        update orders set status = 1
+        update orders set status = #{status}
         where order_id = #{order_id}
     </update>
+
+    <select id="findOrderById" resultType="order">
+        select <include refid="selectOrder"></include>
+        from orders
+        where order_id = #{order_id}
+    </select>
 </mapper>

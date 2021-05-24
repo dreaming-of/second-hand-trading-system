@@ -182,6 +182,7 @@
     </div>
     <input type="hidden" id="touser" th:value="${toUser.headerImg}">
     <input type="hidden" id="fromuser" th:value="${session.LoginUser.headerImg}">
+    <input type="hidden" id="my" th:value="${session.LoginUser.user_id}">
 </div>
 <script th:src="@{/layui/layui.js}"></script>
 <script th:src="@{/js/jquery-3.5.1.min.js}"></script>
@@ -194,7 +195,8 @@
     $(function () {
         var touser = $('#touser').attr('value');
         var fromuser = $('#fromuser').attr('value');
-        var wb = new WebSocket("ws://localhost:8080/websocket");
+        var my = $('#my').attr('value');
+        var wb = new WebSocket("ws://localhost:8080/websocket/" + my);
 
         wb.onmessage = function (event) {
             var data = event.data;
@@ -226,7 +228,7 @@
 
             $('.box').append('<div class="my"><img class="avatar" src='+fromuser+' /><div class="content"><p>' + content + '</p></div></div>');
             $('.box').children(':last').get(0).scrollIntoView(false);
-            var se = { 'toUser': id, 'content': content };
+            var se = {'fromUser': my, 'toUser': id, 'content': content };
             wb.send(JSON.stringify(se));
         });
     });

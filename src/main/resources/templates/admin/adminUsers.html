@@ -29,8 +29,14 @@
 
         .name {
             position: absolute;
-            margin-left: 75px;
+            margin-left: 80px;
             margin-top: 25px;
+        }
+        .msg {
+            position: absolute;
+            width: 100px;
+            margin-left: 80px;
+            margin-top: 50px;
         }
 
         .side {
@@ -63,6 +69,9 @@
                 </div>
                 <div class="name">
                     <p th:text="|管理员:${session.admin.username}|"></p>
+                </div>
+                <div class="msg">
+                    <a class="btn btn-danger btn-sm" th:href="@{/admin/logout}" role="button">退出</a>
                 </div>
             </div>
             <li class="nav-item">

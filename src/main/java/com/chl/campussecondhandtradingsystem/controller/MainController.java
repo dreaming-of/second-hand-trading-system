@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +32,9 @@ public class MainController {
 
     @Autowired
     private ChatService chatService;
+
+    @Autowired
+    private CommentService commentService;
 
     @GetMapping(value = {"/index.html", "/", "/index"})
     public String index(Model model, Page page){
@@ -120,4 +126,44 @@ public class MainController {
         return "letter";
     }
 
+    @GetMapping("/comment.html")
+    public String getCommentPage(Model model){
+        List<Comment> commentList = commentService.getCommentList();
+        List<Map<String, Object>> comsVo = new ArrayList<>();
+        if (!commentList.isEmpty()){
+            for (Comment c : commentList){
+                Map<String, Object> map = new HashMap<>();
+                User u = userService.findUserById(c.getUser_id());
+                map.put("user", u);
+                map.put("comment", c);
+                comsVo.add(map);
+            }
+        }
+        model.addAttribute("comments", comsVo);
+        return "comment";
+    }
+
+    @GetMapping("/orderpay.html/{order_id}")
+    public String getOrderPayPage(Model model, @PathVariable("order_id")String id){
+        Order order = orderService.findOrderById(id);
+        List<OrderDetails> orderDetails = orderDetailsService.getOrderDetailsByOrderId(id);
+        double total = 0;
+        if (orderDetails != null){
+            for (OrderDetails od : orderDetails){
+                total += od.getPrice();
+            }
+        }
+        Map<String, Object> orderVo = new HashMap<>();
+        orderVo.put("order", order);
+        orderVo.put("orderDetailsList", orderDetails);
+        orderVo.put("total", total);
+        model.addAttribute("orderVo", orderVo);
+        return "orderpay";
+    }
+
+    @GetMapping("/test")
+    @ResponseBody
+    public String test(HttpServletRequest request){
+        return request.getRequestURL().toString();
+    }
 }

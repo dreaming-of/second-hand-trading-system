@@ -27,7 +27,7 @@ public class UserService {
 
     public User findAdmin(User user){
         user.setPassword(MD5Utils.md5(user.getPassword()));
-        return userDao.findUser(user);
+        return userDao.findAdmin(user);
     }
 
     public int insertUser(User user) {

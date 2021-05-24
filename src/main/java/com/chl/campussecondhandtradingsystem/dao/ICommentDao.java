@@ -13,4 +13,6 @@ public interface ICommentDao {
     List<Comment> getCommentsByGoodsId(@Param("goods_id") int goods_id, @Param("offset") int offset, @Param("limit") int limit);
 
     int getCommentRowsByGoodsId(int goods_id);
+
+    List<Comment> getCommentList();
 }

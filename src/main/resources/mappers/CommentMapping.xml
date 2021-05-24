@@ -29,4 +29,11 @@
         from comment
         where goods_id = #{goods_id}
     </select>
+
+    <select id="getCommentList" resultType="comment">
+        select <include refid="selectField"></include>
+        from comment
+        where goods_id = 0
+        order by create_time desc
+    </select>
 </mapper>

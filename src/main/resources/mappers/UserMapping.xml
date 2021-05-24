@@ -19,7 +19,7 @@
     <select id="findUser" resultType="user">
         select
         <include refid="selectField"></include>
-        from users where username = #{username} and password = #{password};
+        from users where student_number = #{student_number} and password = #{password};
     </select>
 
     <select id="findAdmin" resultType="user">
@@ -46,7 +46,7 @@
     </select>
 
     <!--    select by student_number    -->
-    <select id="">
+    <select id="getUserByStudentNumber">
         select
         <include refid="selectField"></include>
         from users

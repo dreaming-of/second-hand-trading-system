@@ -2,6 +2,7 @@ package com.chl.campussecondhandtradingsystem.dao;
 
 import com.chl.campussecondhandtradingsystem.pojo.Order;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -15,5 +16,7 @@ public interface IOrderDao {
 
     void deleteOrderById(String order_id);
 
-    void updateOrder(String order_id);
+    void updateOrder(@Param("order_id") String order_id, @Param("status")int status);
+
+    Order findOrderById(String order_id);
 }

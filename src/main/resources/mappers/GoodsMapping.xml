@@ -30,11 +30,17 @@
     <select id="getGoodsRows" resultType="int">
         select count(*)
         from goods
+        where goods_id not in (
+        select goods_id from orderdetails where status = 1
+        )
     </select>
 
     <select id="getGoodsList" resultType="goods">
         select <include refid="selectField"></include>
         from goods
+        where goods_id not in (
+        select goods_id from orderdetails where status = 1
+        )
         order by goods_id desc
         limit #{offset}, #{limit}
     </select>

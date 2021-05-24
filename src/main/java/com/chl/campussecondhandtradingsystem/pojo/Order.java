@@ -58,7 +58,18 @@ public class Order {
         this.status = status;
     }
 
-    public String getStat(){
-        return status == 0 ? "未完成" : "已完成";
+    public String getStat() {
+        switch (status) {
+            case 0:
+                return "未支付";
+            case 1:
+                return "等待发货";
+            case 2:
+                return "已发货";
+            case 3:
+                return "已完成";
+            default:
+                return "";
+        }
     }
 }
